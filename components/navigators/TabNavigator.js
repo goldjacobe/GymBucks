@@ -4,14 +4,14 @@ import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import HomeScreen from "./screens/HomeScreen";
-import PoolScreen from "./screens/PoolScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import HomeStackNavigator from "./HomeStackNavigator";
+import PoolStackNavigator from "./PoolStackNavigator";
+import ProfileStackNavigator from "./ProfileStackNavigator";
 
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomeStackNavigator,
       navigationOptions: {
         tabBarLabel: "Home",
         tabBarIcon: ({ tintColor }) => (
@@ -20,7 +20,7 @@ const TabNavigator = createBottomTabNavigator(
       }
     },
     Pool: {
-      screen: PoolScreen,
+      screen: PoolStackNavigator,
       navigationOptions: {
         tabBarLabel: "Reward Pool",
         tabBarIcon: ({ tintColor }) => (
@@ -29,7 +29,7 @@ const TabNavigator = createBottomTabNavigator(
       }
     },
     Profile: {
-      screen: ProfileScreen,
+      screen: ProfileStackNavigator,
       navigationOptions: {
         tabBarLabel: "Profile",
         tabBarIcon: ({ tintColor }) => (

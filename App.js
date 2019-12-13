@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Navigator from "./components/TabNavigator";
+import Navigator from "./components/navigators/TabNavigator";
 
 export default function App() {
   return (
