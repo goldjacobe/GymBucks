@@ -7,6 +7,7 @@ class PostList extends React.Component {
   render() {
     const postDataList = [
       {
+        postId: "0001",
         userId: "jonhisfun",
         userName: "john",
         content: "This is the content of a post",
@@ -15,6 +16,7 @@ class PostList extends React.Component {
         likes: "10"
       },
       {
+        postId: "0002",
         userId: "daveisfunnnnn",
         userName: "Dave",
         content:
@@ -24,6 +26,7 @@ class PostList extends React.Component {
         likes: "20"
       },
       {
+        postId: "0003",
         userId: "Jisherehaha",
         userName: "Aidenbear",
         content: "This is the content of a post from aiden",
@@ -32,6 +35,7 @@ class PostList extends React.Component {
         likes: "0"
       },
       {
+        postId: "0004",
         userId: "Jisherehaha",
         userName: "Aidenbear",
         content: "This is the content of a post from aiden",
@@ -43,6 +47,7 @@ class PostList extends React.Component {
     return (
       <View style={styles.container}>
         <FlatList
+          keyExtractor={(item, index) => item.postId}
           data={postDataList}
           renderItem={itemData => (
             <View style={styles.listItem}>

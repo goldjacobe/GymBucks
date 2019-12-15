@@ -2,12 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 import PostList from "../PostList";
+import PostBtn from "../PostBtn";
 
 class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <PostList />
+        <PostBtn />
       </View>
     );
   }
