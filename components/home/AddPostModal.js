@@ -51,6 +51,7 @@ export default class AddPostModal extends Component {
                   title="Post"
                   color="white"
                   onPress={() => {
+                    this.postLog();
                     props.onSetVisable();
                     this.clearInput();
                   }}
@@ -96,11 +97,18 @@ export default class AddPostModal extends Component {
   }
 
   postLog() {
-    var image = this.state.image;
+    var imageUri = this.state.image;
     const text = this.state.text;
     const date = new Date();
-    const ext = image.uri.split(".")[-1];
-    image["name"] = "ashley-" + date.getTime() + "." + ext;
+    const uriSplit = imageUri.split(".");
+    const ext = uriSplit[uriSplit.length - 1];
+    const name = "ashley-" + date.getTime() + "." + ext;
+    const type = "image/" + ext;
+    const image = {
+      name: name,
+      type: type,
+      uri: imageUri
+    };
     console.log(image);
     const options = {
       bucket: "cloud-project-log-pic",
@@ -108,7 +116,6 @@ export default class AddPostModal extends Component {
       accessKey: "AKIA4DYHWUTBMWY73UQF ",
       secretKey: "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"
     };
-    console.log("updating");
     RNS3.put(image, options).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
