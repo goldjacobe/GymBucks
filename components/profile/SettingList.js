@@ -37,7 +37,7 @@ const SettingList = props => {
           onPress={() =>
             props.navigation.navigate("ProfileEdit", {
               key: "username",
-              value: props.userData.name,
+              value: props.userData.username,
               onSave: updateUser
             })
           }
@@ -57,7 +57,7 @@ const SettingList = props => {
           onPress={() =>
             props.navigation.navigate("ProfileEdit", {
               key: "phone",
-              value: props.userData.name,
+              value: props.userData.phone,
               onSave: updateUser
             })
           }
@@ -77,7 +77,7 @@ const SettingList = props => {
           onPress={() =>
             props.navigation.navigate("ProfileEdit", {
               key: "email",
-              value: props.userData.name,
+              value: props.userData.email,
               onSave: updateUser
             })
           }
