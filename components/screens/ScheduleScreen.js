@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import ScheduleRow from "../schedule/ScheduleRow";
+import _ from "lodash"
 
 class ScheduleScreen extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class ScheduleScreen extends React.Component {
         alignItems: "stretch",
         backgroundColor: "red"
       }}>
-        <ScheduleRow />
+        {_.map([-1, 0, 1], (w) => <ScheduleRow key={w} week={w} />)}
       </View>
     );
   }
