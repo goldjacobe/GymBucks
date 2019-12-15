@@ -16,7 +16,7 @@ const ProfileScreen = props => {
               title: "Total Earning",
               value: "$132.00",
               iconName: "md-trophy",
-              iconColor: "red"
+              iconColor: "#ea8e50"
             }}
           />
           <ProfileTile
@@ -25,7 +25,7 @@ const ProfileScreen = props => {
               title: "Pools Participated In",
               value: "50",
               iconName: "md-people",
-              iconColor: "blue"
+              iconColor: "#ab6d5e"
             }}
           />
         </View>
@@ -36,7 +36,7 @@ const ProfileScreen = props => {
               title: "Completed Workouts",
               value: "28",
               iconName: "md-checkmark",
-              iconColor: "grey"
+              iconColor: "#827a60"
             }}
           />
           <ProfileTile
@@ -45,7 +45,7 @@ const ProfileScreen = props => {
               title: "My Balance",
               value: "$89.55",
               iconName: "md-cash",
-              iconColor: "green"
+              iconColor: "#d1c18d"
             }}
           />
         </View>
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#f2f2f2"
   },
   profileTilesContainer: {
     width: "100%",
