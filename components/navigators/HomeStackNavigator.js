@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import HomeScreen from "../screens/HomeScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import { Header } from "react-native/Libraries/NewAppScreen";
+import ScheduleScreen from "../screens/ScheduleScreen";
 
 const HomeStackNavigator = createStackNavigator({
   Home: {
@@ -26,6 +27,12 @@ const HomeStackNavigator = createStackNavigator({
     screen: NotificationsScreen,
     navigationOptions: ({ navigation }) => ({
       title: "Notifications"
+    })
+  },
+  Schedule: {
+    screen: ScheduleScreen,
+    navigationOptions: ({ navigation }) => ({
+      title: "Schedule"
     })
   }
 });
