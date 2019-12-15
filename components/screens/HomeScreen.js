@@ -4,8 +4,8 @@ import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-import PostList from "../PostList";
-import AddPostModal from "../AddPostModal";
+import PostList from "../home/PostList";
+import AddPostModal from "../home/AddPostModal";
 import ScheduleRow from "../schedule/ScheduleRow";
 
 export default function HomeScreen(props) {
@@ -18,7 +18,7 @@ export default function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <TouchableHighlight onPress={() => props.navigation.navigate("Schedule")}>
-          <ScheduleRow />
+        <ScheduleRow />
       </TouchableHighlight>
       <PostList />
       <AddPostModal visable={modalVisible} onSetVisable={switchModalVisible} />
