@@ -12,6 +12,7 @@ import { Header } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import { RNS3 } from "react-native-aws3";
 
 export default class AddPostModal extends Component {
   state = {
@@ -95,8 +96,24 @@ export default class AddPostModal extends Component {
   }
 
   postLog() {
-    const image = this.state.image;
+    var image = this.state.image;
     const text = this.state.text;
+    const date = new Date();
+    const ext = image.uri.split(".")[-1];
+    image["name"] = "ashley-" + date.getTime() + "." + ext;
+    console.log(image);
+    const options = {
+      bucket: "cloud-project-log-pic",
+      region: "us-east-1",
+      accessKey: "AKIA4DYHWUTBMWY73UQF ",
+      secretKey: "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"
+    };
+    console.log("updating");
+    RNS3.put(image, options).then(response => {
+      if (response.status !== 201)
+        throw new Error("Failed to upload image to S3");
+      console.log(response.body);
+    });
   }
 
   componentDidMount() {
