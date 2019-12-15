@@ -33,7 +33,8 @@ class PostItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "yellow",
-    padding: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     marginVertical: 5
   },
   header: {
