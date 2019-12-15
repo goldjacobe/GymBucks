@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 import PostList from "../PostList";
 import AddPostModal from "../AddPostModal";
-export default function HomeScreen() {
+import ScheduleRow from "../schedule/ScheduleRow";
+
+export default function HomeScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const switchModalVisible = () => {
@@ -14,6 +17,9 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
+      <TouchableHighlight onPress={() => props.navigation.navigate("Schedule")}>
+          <ScheduleRow />
+      </TouchableHighlight>
       <PostList />
       <AddPostModal visable={modalVisible} onSetVisable={switchModalVisible} />
       <ActionButton
@@ -34,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
     backgroundColor: "red"
   },
   actionButtonIcon: {
