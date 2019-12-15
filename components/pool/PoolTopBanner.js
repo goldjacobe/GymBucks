@@ -26,7 +26,7 @@ const PoolTopBanner = props => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: "#eee",
+    backgroundColor: "white",
     height: 200,
     marginBottom: 5
   },

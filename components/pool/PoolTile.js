@@ -11,7 +11,7 @@ const PoolTile = props => {
       <Text style={styles.statText}>{props.poolData.value}</Text>
       <Text style={styles.titleText}>{props.poolData.title}</Text>
       <View style={[styles.iconWrapper, iconColorStyle]}>
-        <Icon name={props.poolData.iconName} size={22} color="#ddd" />
+        <Icon name={props.poolData.iconName} size={22} color="white" />
       </View>
     </View>
   );
@@ -21,10 +21,10 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 100,
-    backgroundColor: "yellow",
+    backgroundColor: "white",
     margin: 5,
     justifyContent: "flex-end",
-    padding: 5
+    padding: 10
   },
   statText: {
     fontSize: 30

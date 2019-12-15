@@ -15,6 +15,7 @@ const PoolList = props => {
             <PoolListItem poolData={itemData} />
           </View>
         )}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -22,15 +23,17 @@ const PoolList = props => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "blue",
+    backgroundColor: "#f2f2f2",
     alignSelf: "stretch",
-    marginVertical: 10,
-    paddingTop: 5
+    paddingTop: 5,
+    flex: 1
   },
   sectionHeader: {
     fontSize: 16,
     paddingLeft: 15,
-    paddingVertical: 5
+    paddingVertical: 5,
+    fontWeight: "bold",
+    color: "#666"
   }
 });
 

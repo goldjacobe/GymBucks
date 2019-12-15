@@ -54,6 +54,7 @@ class PostList extends React.Component {
               <PostItem postData={itemData} />
             </View>
           )}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    backgroundColor: "blue"
+    backgroundColor: "#eee"
   },
   listItem: {}
 });

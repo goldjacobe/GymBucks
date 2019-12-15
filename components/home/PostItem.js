@@ -7,23 +7,33 @@ class PostItem extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.userName}>{post.userName}</Text>
-          <Text>{"  "}</Text>
-          <Text style={styles.userId}>{"@" + post.userId}</Text>
+        <View style={styles.postProfilePicContainer}>
+          <Image
+            source={require("../../assets/default.png")}
+            style={{ width: 40, height: 40, borderRadius: 40 / 2 }}
+          />
         </View>
-        <View>
-          <View style={styles.postContent}>
-            <Text>{post.content}</Text>
+        <View style={styles.postBody}>
+          <View style={styles.header}>
+            <Text style={styles.userName}>{post.userName}</Text>
+            <Text>{"  "}</Text>
+            <Text style={styles.userId}>{"@" + post.userId}</Text>
           </View>
           <View>
-            <Image style={styles.postImage} />
+            <View style={styles.postContent}>
+              <Text>{post.content}</Text>
+            </View>
+            <View style={styles.postImageContainer}>
+              <Image
+                source={require("../../assets/default.png")}
+                style={styles.postImage}
+                resizeMode="contain"
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.footer}>
-          <Text>{post.time}</Text>
-          <Text>{"  "}</Text>
-          <Text>{post.likes + " likes"}</Text>
+          <View style={styles.footer}>
+            <Text style={{ color: "#888" }}>{post.time}</Text>
+          </View>
         </View>
       </View>
     );
@@ -32,10 +42,19 @@ class PostItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "yellow",
+    flexDirection: "row",
+    backgroundColor: "white",
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginVertical: 5
+    marginVertical: 5,
+    justifyContent: "flex-start"
+  },
+  postProfilePicContainer: {
+    paddingTop: 5,
+    paddingRight: 10
+  },
+  postBody: {
+    flex: 1
   },
   header: {
     flexDirection: "row",
@@ -50,16 +69,18 @@ const styles = StyleSheet.create({
   postContent: {
     marginVertical: 3
   },
+  postImageContainer: {
+    height: 180
+  },
   postImage: {
-    height: 100,
-    borderWidth: 1,
+    flex: 1,
+    width: 300,
     marginVertical: 3
   },
   footer: {
-    flexDirection: "row",
-    backgroundColor: "green",
     marginVertical: 3,
-    direction: "rtl"
+    alignItems: "flex-end",
+    paddingRight: 10
   }
 });
 

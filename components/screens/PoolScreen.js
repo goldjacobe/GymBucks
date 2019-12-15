@@ -45,7 +45,7 @@ const PoolScreen = props => {
               title: "Current Pool Value",
               value: poolToday["Total Pool Value"],
               iconName: "md-checkmark",
-              iconColor: "red"
+              iconColor: "#bfdf8e"
             }}
           />
           <PoolTile
@@ -54,7 +54,7 @@ const PoolScreen = props => {
               title: "Total Participants",
               value: poolToday["Total Participants"],
               iconName: "md-people",
-              iconColor: "blue"
+              iconColor: "#dcc8c6"
             }}
           />
         </View>
@@ -65,7 +65,7 @@ const PoolScreen = props => {
               title: "My Expected Earning",
               value: "$10.52",
               iconName: "md-trophy",
-              iconColor: "grey"
+              iconColor: "#d2b2d5"
             }}
           />
           <PoolTile
@@ -74,7 +74,7 @@ const PoolScreen = props => {
               title: "My Balance",
               value: "$89.55",
               iconName: "md-cash",
-              iconColor: "green"
+              iconColor: "#97cbeb"
             }}
           />
         </View>
@@ -87,7 +87,7 @@ const PoolScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "#f2f2f2",
     justifyContent: "flex-start",
     alignItems: "center"
   },
@@ -100,12 +100,8 @@ const styles = StyleSheet.create({
   poolTilesRow: {
     flexDirection: "row"
   },
-  poolTile: {
-    flex: 1
-  },
-  poolList: {
-    flex: 1
-  }
+  poolTile: {},
+  poolList: {}
 });
 
 const formatPoolList = poolList => {
