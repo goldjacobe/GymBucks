@@ -3,11 +3,24 @@ import { View, Text, StyleSheet, Button } from "react-native";
 
 import ProfileTopBanner from "../profile/ProfileTopBanner";
 import ProfileTile from "../profile/ProfileTile";
+import SettingList from "../profile/SettingList";
 
 const ProfileScreen = props => {
+  const userData = {
+    balance: 10000,
+    completed_workout: 100,
+    curpollbal: 0,
+    curpollnum: 0,
+    email: "tw2725@columbia.edu",
+    name: "Ashley",
+    phone: "3106223581",
+    profilepic: "default.png",
+    uid: "3106223581",
+    username: "ashleywu"
+  };
   return (
     <View style={styles.container}>
-      <ProfileTopBanner />
+      <ProfileTopBanner userData={userData} />
       <View style={styles.profileTilesContainer}>
         <View style={styles.profileTilesRow}>
           <ProfileTile
@@ -23,7 +36,7 @@ const ProfileScreen = props => {
             style={styles.profileTile}
             profileData={{
               title: "Pools Participated In",
-              value: "50",
+              value: userData.curpollnum.toString(),
               iconName: "md-people",
               iconColor: "#ab6d5e"
             }}
@@ -34,7 +47,7 @@ const ProfileScreen = props => {
             style={styles.profileTile}
             profileData={{
               title: "Completed Workouts",
-              value: "28",
+              value: userData.completed_workout.toString(),
               iconName: "md-checkmark",
               iconColor: "#827a60"
             }}
@@ -43,16 +56,18 @@ const ProfileScreen = props => {
             style={styles.profileTile}
             profileData={{
               title: "My Balance",
-              value: "$89.55",
+              value: "$" + userData.balance.toString(),
               iconName: "md-cash",
               iconColor: "#d1c18d"
             }}
           />
         </View>
       </View>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Button title="Sign out" onPress={props.screenProps.logOut} />
-      </View>
+      <SettingList
+        onLogOut={props.screenProps.logOut}
+        userData={userData}
+        navigation={props.navigation}
+      />
     </View>
   );
 };

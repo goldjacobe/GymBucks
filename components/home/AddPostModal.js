@@ -51,7 +51,6 @@ export default class AddPostModal extends Component {
                   color="white"
                   onPress={() => {
                     props.onSetVisable();
-                    this.postLog();
                     this.clearInput();
                   }}
                 />
@@ -96,8 +95,8 @@ export default class AddPostModal extends Component {
   }
 
   postLog() {
-    console.log("posting......");
-    console.log(this.state);
+    const image = this.state.image;
+    const text = this.state.text;
   }
 
   componentDidMount() {
@@ -132,11 +131,10 @@ export default class AddPostModal extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "red"
+    flex: 1
   },
   modalBody: {
-    backgroundColor: "blue",
+    backgroundColor: "#f2f2f2",
     flex: 1
   },
   headerCenterText: {
@@ -146,9 +144,9 @@ const styles = StyleSheet.create({
   modalContent: {
     flex: 1,
     margin: 5,
-    backgroundColor: "yellow",
+    backgroundColor: "#f2f2f2",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "stretch"
   },
   uploadImage: {
     flex: 1,
@@ -156,12 +154,14 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   textInputContainer: {
-    flex: 1
+    flex: 1,
+    alignItems: "stretch"
   },
   textInput: {
-    width: 300,
     height: 150,
-    borderWidth: 1,
-    padding: 10
+    padding: 10,
+    marginHorizontal: 20,
+    backgroundColor: "white",
+    fontSize: 16
   }
 });

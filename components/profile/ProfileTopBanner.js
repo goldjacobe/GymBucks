@@ -6,13 +6,17 @@ const ProfileTopBanner = props => {
     <View style={styles.container}>
       <View style={styles.left}>
         <Image
-          source={require("../../assets/default.png")}
+          source={{
+            uri:
+              "https://cloud-project-user-profile-pic.s3.amazonaws.com/" +
+              props.userData.profilepic
+          }}
           style={{ width: 120, height: 120, borderRadius: 120 / 2 }}
         />
       </View>
       <View style={styles.right}>
-        <Text style={styles.userNameText}>Donald Tramp</Text>
-        <Text style={styles.userIdText}>@dthahaha</Text>
+        <Text style={styles.userNameText}>{props.userData.name}</Text>
+        <Text style={styles.userIdText}>{"@" + props.userData.username}</Text>
       </View>
     </View>
   );
