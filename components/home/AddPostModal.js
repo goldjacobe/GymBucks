@@ -86,7 +86,6 @@ export default class AddPostModal extends Component {
                 />
               </View>
             </View>
-            <Text>Hello World!</Text>
           </View>
         </View>
       </Modal>
