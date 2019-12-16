@@ -12,6 +12,8 @@ import { Header } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+import { RNS3 } from "react-native-aws3";
+import apigClientFactory from "../../apig/apigClient";
 
 export default class AddPostModal extends Component {
   state = {
@@ -21,6 +23,7 @@ export default class AddPostModal extends Component {
 
   render() {
     const props = this.props;
+    console.log("addpostmodal props: ", props);
     let { image } = this.state;
     return (
       <Modal
@@ -50,6 +53,7 @@ export default class AddPostModal extends Component {
                   title="Post"
                   color="white"
                   onPress={() => {
+                    this.postLog();
                     props.onSetVisable();
                     this.clearInput();
                   }}
@@ -95,8 +99,55 @@ export default class AddPostModal extends Component {
   }
 
   postLog() {
-    const image = this.state.image;
+    const uid = this.props.uid;
+
+    // upload image to s3
+    var imageUri = this.state.image;
     const text = this.state.text;
+    const date = new Date();
+    const uriSplit = imageUri.split(".");
+    const ext = uriSplit[uriSplit.length - 1];
+    const name = uid + "-" + date.getTime() + "." + ext;
+    const type = "image/" + ext;
+    const image = {
+      name: name,
+      type: type,
+      uri: imageUri
+    };
+    console.log(image);
+    const options = {
+      bucket: "cloud-project-log-pic",
+      region: "us-east-1",
+      accessKey: "AKIA4DYHWUTBMWY73UQF ",
+      secretKey: "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"
+    };
+    RNS3.put(image, options).then(response => {});
+
+    // call post log api
+    this.update_log(uid, text, name);
+  }
+
+  update_log(uid, content, post_pic) {
+    var apigClient = apigClientFactory.newClient({
+      apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
+    });
+    var params = {
+      uid: uid,
+      content: content,
+      post_pic: post_pic
+    };
+    apigClient
+      .updatelogPut({}, params, {})
+      .then(function(result) {
+        //returned response
+        // {
+        // "statusCode": 200,
+        // "body": "\"success\""
+        // }
+      })
+      .catch(function(result) {
+        console.log(result);
+      });
   }
 
   componentDidMount() {

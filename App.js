@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, Text, Button } from "react-native";
 import Navigator from "./components/navigators/TabNavigator";
-import apigClientFactory from "./apig/apigClient"
+import apigClientFactory from "./apig/apigClient";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,7 +32,8 @@ export default function App() {
       .signinGet(params)
       .then(function(result) {
         // This is executed if get a 200 response
-        if (result.data) { // Check to make sure that log in was successful
+        if (result.data) {
+          // Check to make sure that log in was successful
           reset();
           setLoggedIn(true);
         } else {
@@ -73,7 +74,8 @@ export default function App() {
       .signupGet(params)
       .then(function(result) {
         // This is executed if get a 200 response
-        if (result.data) { // Check to make sure that log in was successful
+        if (result.data) {
+          // Check to make sure that log in was successful
           setLoggedIn(true);
           setSignUp(false);
           reset();
@@ -91,8 +93,8 @@ export default function App() {
 
   if (loggedIn) {
     return (
-      <View style={{flex: 1}}>
-        <Navigator screenProps={{phone: phone, logOut: logOut}}/>
+      <View style={{ flex: 1 }}>
+        <Navigator screenProps={{ uid: phone, logOut: logOut }} />
       </View>
     );
   } else if (signUp) {
@@ -129,23 +131,23 @@ export default function App() {
     );
   } else {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <TextInput
           value={phone}
           onChangeText={setPhone}
-          placeholder={'Phone'}
-          style={{margin: 10}}
+          placeholder={"Phone"}
+          style={{ margin: 10 }}
         />
         <TextInput
           value={password}
           onChangeText={setPassword}
-          placeholder={'Password'}
-          style={{margin: 10}}
+          placeholder={"Password"}
+          style={{ margin: 10 }}
         />
         <Button title="Sign in" onPress={logIn} />
         <Text style={{color: 'red'}}>{error}</Text>
         <Button title="Sign up" onPress={startSignUp} />
       </View>
-    )
+    );
   }
-};
+}
