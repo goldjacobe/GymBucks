@@ -10,10 +10,7 @@ const PoolScreen = props => {
   const [poolList, setpoolList] = useState([]);
   const [poolToday, setpoolToday] = useState({});
 
-  useEffect(() => {
-    get_pool(props.screenProps.uid, setpoolList, setpoolToday);
-    console.log("doinnnnnnnnnnnng");
-  }, []);
+  get_pool(props.screenProps.uid, setpoolList, setpoolToday);
 
   return (
     <View style={styles.container}>
