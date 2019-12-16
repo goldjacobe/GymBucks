@@ -89,13 +89,13 @@ export default function App() {
       setError("Password mismatch");
       return;
     }
-
+    var imgName = "default.png";
     if (image) {
       console.log("image: ", image);
       const imageUri = image;
       const uriSplit = imageUri.split(".");
       const ext = uriSplit[uriSplit.length - 1];
-      const imgName = phone + "." + ext;
+      imgName = phone + "." + ext;
       const type = "image/" + ext;
       const im = {
         name: imgName,
