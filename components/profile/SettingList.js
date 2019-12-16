@@ -6,8 +6,8 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-
 import Icon from "react-native-vector-icons/Ionicons";
+import apigClientFactory from "../../apig/apigClient";
 
 const SettingList = props => {
   exportUserData(props);
@@ -141,13 +141,31 @@ const exportUserData = props => {
 };
 
 const updateUser = updateData => {
+  // create updated userdata params
   var updateDataF = {};
   updateDataF[updateData.key] = updateData.value;
   const updatedUserData = {
     ...userData,
     ...updateDataF
   };
-  console.log(updatedUserData);
+
+  var apigClient = apigClientFactory.newClient({
+    apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
+  });
+
+  apigClient
+    .updateinfoPut({}, updatedUserData, {})
+    .then(function(result) {
+      //returned response
+      // {
+      // "statusCode": 200,
+      // "body": "\"success\""
+      // }
+      console.log(result.data);
+    })
+    .catch(function(result) {
+      console.log(result);
+    });
 };
 
 export default SettingList;

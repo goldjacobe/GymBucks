@@ -2,12 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const PoolTopBanner = props => {
-  console.log(props);
   return (
     <View style={styles.container}>
       <View style={styles.left}>
         <Text style={styles.percentText}>
-          {props.poolToday["Completion Ratio"]}
+          {props.poolToday.completion * 100 + "%"}
         </Text>
         <Text style={styles.leftText}>Workout</Text>
         <Text style={styles.leftText}>Completion</Text>
@@ -16,7 +15,7 @@ const PoolTopBanner = props => {
         <Text style={styles.dayText}>{getDayOfWeek()}</Text>
         <Text style={styles.dateText}>{getDate()}</Text>
         <Text style={styles.rightText}>
-          Reward Pool #{props.poolToday["Pool Number"]}
+          Reward Pool #{getPoolNumber(props.poolToday.date).toString()}
         </Text>
       </View>
     </View>
@@ -95,6 +94,14 @@ const getDate = () => {
   const year = date.getFullYear();
 
   return monthNames[monthIndex] + " " + day + " " + year;
+};
+
+const getPoolNumber = time => {
+  const date = new Date(time);
+  const firstDay = new Date("12/10/2019");
+  const timeDiff = date.getTime() - firstDay.getTime();
+  const poolNumber = timeDiff / (1000 * 3600 * 24);
+  return poolNumber;
 };
 
 export default PoolTopBanner;
