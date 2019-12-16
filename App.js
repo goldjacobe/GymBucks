@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
 import {
   View,
   TextInput,
@@ -10,19 +9,11 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
-=======
-import { View, TextInput, Text, Button, Image } from "react-native";
->>>>>>> 426d4554b197416375836be1258e4b7bdb3cd3a0
+
 import Navigator from "./components/navigators/TabNavigator";
 import apigClientFactory from "./apig/apigClient";
 import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
-
-import * as ImagePicker from "expo-image-picker";
-import Constants from "expo-constants";
-import * as Permissions from "expo-permissions";
-import { RNS3 } from "react-native-aws3";
-import { withTheme } from "react-native-elements";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -32,8 +23,6 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [name, setName] = useState("");
-  const [image, setImage] = useState(null)
-
   const [image, setImage] = useState(null);
 
   const reset = () => {
@@ -101,28 +90,30 @@ export default function App() {
       return;
     }
 
-    if (image) { 
+    if (image) {
+      console.log("image: ", image);
       const imageUri = image;
       const uriSplit = imageUri.split(".");
       const ext = uriSplit[uriSplit.length - 1];
-      const name = uid + "." + ext
+      const name = phone + "." + ext;
       const type = "image/" + ext;
       const im = {
         name: name,
         type: type,
         uri: imageUri
-      }
+      };
       const options = {
         bucket: "cloud-project-user-profile-pic",
         region: "us-east-1",
         accessKey: "AKIA4DYHWUTBMWY73UQF ",
         secretKey: "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"
       };
-      console.log("UPLOADING")
+      console.log("UPLOADING");
 
-      RNS3.put(im, options).then(response => {console.log(response)});
-  }
-
+      RNS3.put(im, options).then(response => {
+        console.log(response);
+      });
+    }
 
     var apigClient = apigClientFactory.newClient({
       apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
@@ -164,6 +155,26 @@ export default function App() {
         keyboardShouldPersistTaps={"handled"}
       >
         <Text style={styles.logoSignup}>GymBucks</Text>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <TouchableOpacity
+            onPress={pickImage}
+            activeOpacity={0.7}
+            style={{
+              height: 100,
+              width: 100,
+              backgroundColor: "white",
+              borderRadius: 100,
+              marginBottom: 20
+            }}
+          >
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 100, height: 100, borderRadius: 100 }}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
         <TextInput
           value={phone}
           onChangeText={setPhone}
@@ -188,7 +199,6 @@ export default function App() {
           placeholder={"Confirm password"}
           style={styles.inputField}
         />
-<<<<<<< HEAD
         <TouchableOpacity
           onPress={signUpPressed}
           style={styles.signupViewButton}
@@ -196,24 +206,6 @@ export default function App() {
         >
           <Text style={styles.signinButtonText}>Sign up</Text>
         </TouchableOpacity>
-=======
-        <View style={{justifyContent: "center", alignItems: "center"}}>
-          <Button
-            title="Pick a profile image from camera roll"
-            onPress={pickImage}
-          />
-          <View>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            )}
-          </View>
-        </View>
-
-        <Button title="Sign up" onPress={signUpPressed} />
->>>>>>> 426d4554b197416375836be1258e4b7bdb3cd3a0
         <Text style={{ color: "red" }}>{error}</Text>
         <Button title="Cancel" onPress={cancel} color="grey" />
       </ScrollView>
