@@ -9,15 +9,19 @@ class PostItem extends React.Component {
       <View style={styles.container}>
         <View style={styles.postProfilePicContainer}>
           <Image
-            source={require("../../assets/default.png")}
+            source={{
+              uri:
+                "https://cloud-project-user-profile-pic.s3.amazonaws.com/" +
+                post.profilepic
+            }}
             style={{ width: 40, height: 40, borderRadius: 40 / 2 }}
           />
         </View>
         <View style={styles.postBody}>
           <View style={styles.header}>
-            <Text style={styles.userName}>{post.userName}</Text>
+            <Text style={styles.userName}>{post.name}</Text>
             <Text>{"  "}</Text>
-            <Text style={styles.userId}>{"@" + post.userId}</Text>
+            <Text style={styles.userId}>{"@" + post.username}</Text>
           </View>
           <View>
             <View style={styles.postContent}>
@@ -25,7 +29,11 @@ class PostItem extends React.Component {
             </View>
             <View style={styles.postImageContainer}>
               <Image
-                source={require("../../assets/default.png")}
+                source={{
+                  uri:
+                    "https://cloud-project-log-pic.s3.amazonaws.com/" +
+                    post.post_pic
+                }}
                 style={styles.postImage}
                 resizeMode="contain"
               />

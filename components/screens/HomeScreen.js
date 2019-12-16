@@ -20,8 +20,12 @@ export default function HomeScreen(props) {
       <TouchableHighlight onPress={() => props.navigation.navigate("Schedule")}>
         <ScheduleRow />
       </TouchableHighlight>
-      <PostList />
-      <AddPostModal visable={modalVisible} onSetVisable={switchModalVisible} />
+      <PostList uid={props.screenProps.uid} />
+      <AddPostModal
+        visable={modalVisible}
+        onSetVisable={switchModalVisible}
+        uid={props.screenProps.uid}
+      />
       <ActionButton
         buttonColor="#1abc9c"
         title="Add Post"

@@ -1,65 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+import apigClientFactory from "../../apig/apigClient";
 
 import PostItem from "./PostItem";
 
-class PostList extends React.Component {
-  render() {
-    const postDataList = [
-      {
-        postId: "0001",
-        userId: "jonhisfun",
-        userName: "john",
-        content: "This is the content of a post",
-        image: "",
-        time: "11-12-2019",
-        likes: "10"
-      },
-      {
-        postId: "0002",
-        userId: "daveisfunnnnn",
-        userName: "Dave",
-        content:
-          "This is the content of a post test.This is the content of a post test.This is the content of a post test.This is the content of a post test.This is the content of a post test.",
-        image: "",
-        time: "11-18-2019",
-        likes: "20"
-      },
-      {
-        postId: "0003",
-        userId: "Jisherehaha",
-        userName: "Aidenbear",
-        content: "This is the content of a post from aiden",
-        image: "",
-        time: "11-16-2019",
-        likes: "0"
-      },
-      {
-        postId: "0004",
-        userId: "Jisherehaha",
-        userName: "Aidenbear",
-        content: "This is the content of a post from aiden",
-        image: "",
-        time: "11-16-2019",
-        likes: "0"
-      }
-    ];
-    return (
-      <View style={styles.container}>
-        <FlatList
-          keyExtractor={(item, index) => item.postId}
-          data={postDataList}
-          renderItem={itemData => (
-            <View style={styles.listItem}>
-              <PostItem postData={itemData} />
-            </View>
-          )}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    );
-  }
-}
+const PostList = props => {
+  const [postDataList, setpostDataList] = useState([]);
+
+  const get_log = query => {
+    var apigClient = apigClientFactory.newClient({
+      apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
+    });
+    var params = {
+      uid: query
+    };
+    apigClient
+      .searchlogGet(params)
+      .then(function(result) {
+        //returned a list of json
+        // {
+        //     "uid": "3106223581",
+        //     "content": "new log yayyyyyyyyyyyyyyy",
+        //     "post_pic": "post1.png",
+        //     "time": "12/15/2019-00:39:53",
+        //     "name": "Ashley",
+        //     "username": "ashleywu",
+        //     "profilepic": "default.png"
+        // }
+        setpostDataList(result.data);
+      })
+      .catch(function(result) {
+        console.log(result);
+      });
+  };
+  get_log(props.uid);
+  return (
+    <View style={styles.container}>
+      <FlatList
+        keyExtractor={(item, index) => index}
+        data={postDataList}
+        renderItem={itemData => (
+          <View style={styles.listItem}>
+            <PostItem postData={itemData} />
+          </View>
+        )}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
