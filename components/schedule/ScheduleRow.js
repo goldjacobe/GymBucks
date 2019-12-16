@@ -78,7 +78,7 @@ class ScheduleRow extends React.Component {
         const stamp = this.getStamp(time);
         const color = this.getColor(stamp);
         var inside = <View style={{ alignItems: "center", justifyContent: "center",width: circSize, height: circSize, borderRadius: circSize/2, backgroundColor: color}}>
-            <Text>{day[0]}</Text>
+            <Text style={{fontWeight: "bold", color: "white"}}>{day[0]}</Text>
         </View>
         if (this.props.week == 1) {
             inside = <TouchableHighlight style={{borderRadius: circSize/2}}onPress={() => this.schedule(stamp)}>{inside}</TouchableHighlight>
