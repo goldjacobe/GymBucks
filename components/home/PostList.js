@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import apigClientFactory from "../../apig/apigClient";
 
 import PostItem from "./PostItem";
 
-const PostList = props => {
-  const [postDataList, setpostDataList] = useState([]);
+export default class PostList extends Component {
+  constructor(props) {
+    super(props);
 
-  const get_log = query => {
+    this.state = {
+      postDataList: []
+    };
+  }
+
+  componentDidMount() {
+    this.get_log(this.props.uid);
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          keyExtractor={(item, index) => item.uid + item.time}
+          data={this.state.postDataList}
+          renderItem={itemData => (
+            <View style={styles.listItem}>
+              <PostItem postData={itemData} />
+            </View>
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    );
+  }
+
+  get_log(query) {
     var apigClient = apigClientFactory.newClient({
       apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
     });
@@ -27,28 +54,15 @@ const PostList = props => {
         //     "username": "ashleywu",
         //     "profilepic": "default.png"
         // }
-        setpostDataList(result.data);
+        this.setState({
+          postDataList: result.data
+        });
       })
       .catch(function(result) {
         console.log(result);
       });
-  };
-  get_log(props.uid);
-  return (
-    <View style={styles.container}>
-      <FlatList
-        keyExtractor={(item, index) => index}
-        data={postDataList}
-        renderItem={itemData => (
-          <View style={styles.listItem}>
-            <PostItem postData={itemData} />
-          </View>
-        )}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
-  );
-};
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -58,5 +72,3 @@ const styles = StyleSheet.create({
   },
   listItem: {}
 });
-
-export default PostList;

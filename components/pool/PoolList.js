@@ -8,7 +8,7 @@ const PoolList = props => {
     <View style={styles.container}>
       <Text style={styles.sectionHeader}>Previous Reward Pools</Text>
       <FlatList
-        keyExtractor={(item, index) => Math.random()}
+        keyExtractor={(item, index) => item["Pool Number"].toString()}
         data={props.poolList.reverse()}
         renderItem={itemData => (
           <View style={styles.listItem}>

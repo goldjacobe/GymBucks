@@ -4,7 +4,6 @@ import { gestureHandlerRootHOC } from "react-native-gesture-handler";
 
 const PoolListItem = props => {
   const poolData = props.poolData.item;
-  console.log(poolData);
   return (
     <View style={styles.container}>
       <View style={styles.topBlock}>
