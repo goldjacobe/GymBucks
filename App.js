@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, Button, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  Button,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
+
 import Navigator from "./components/navigators/TabNavigator";
 import apigClientFactory from "./apig/apigClient";
 import * as ImagePicker from "expo-image-picker";
@@ -13,7 +23,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [name, setName] = useState("");
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState(null);
 
   const reset = () => {
     setError("");
@@ -80,28 +90,30 @@ export default function App() {
       return;
     }
 
-    if (image) { 
+    if (image) {
+      console.log("image: ", image);
       const imageUri = image;
       const uriSplit = imageUri.split(".");
       const ext = uriSplit[uriSplit.length - 1];
-      const name = uid + "." + ext
+      const name = phone + "." + ext;
       const type = "image/" + ext;
       const im = {
         name: name,
         type: type,
         uri: imageUri
-      }
+      };
       const options = {
         bucket: "cloud-project-user-profile-pic",
         region: "us-east-1",
         accessKey: "AKIA4DYHWUTBMWY73UQF ",
         secretKey: "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"
       };
-      console.log("UPLOADING")
+      console.log("UPLOADING");
 
-      RNS3.put(im, options).then(response => {console.log(response)});
-  }
-
+      RNS3.put(im, options).then(response => {
+        console.log(response);
+      });
+    }
 
     var apigClient = apigClientFactory.newClient({
       apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
@@ -138,70 +150,152 @@ export default function App() {
     );
   } else if (signUp) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <ScrollView
+        contentContainerStyle={styles.loginView}
+        keyboardShouldPersistTaps={"handled"}
+      >
+        <Text style={styles.logoSignup}>GymBucks</Text>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <TouchableOpacity
+            onPress={pickImage}
+            activeOpacity={0.7}
+            style={{
+              height: 100,
+              width: 100,
+              backgroundColor: "white",
+              borderRadius: 100,
+              marginBottom: 20
+            }}
+          >
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 100, height: 100, borderRadius: 100 }}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
         <TextInput
           value={phone}
           onChangeText={setPhone}
           placeholder={"Phone"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
         <TextInput
           value={name}
           onChangeText={setName}
           placeholder={"Name"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
         <TextInput
           value={password}
           onChangeText={setPassword}
           placeholder={"Password"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
         <TextInput
           value={confirm}
           onChangeText={setConfirm}
           placeholder={"Confirm password"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
-        <View style={{justifyContent: "center", alignItems: "center"}}>
-          <Button
-            title="Pick a profile image from camera roll"
-            onPress={pickImage}
-          />
-          <View>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            )}
-          </View>
-        </View>
-
-        <Button title="Sign up" onPress={signUpPressed} />
+        <TouchableOpacity
+          onPress={signUpPressed}
+          style={styles.signupViewButton}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.signinButtonText}>Sign up</Text>
+        </TouchableOpacity>
         <Text style={{ color: "red" }}>{error}</Text>
-        <Button title="Cancel" onPress={cancel} />
-      </View>
+        <Button title="Cancel" onPress={cancel} color="grey" />
+      </ScrollView>
     );
   } else {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <ScrollView
+        contentContainerStyle={styles.loginView}
+        keyboardShouldPersistTaps={"handled"}
+      >
+        <Text style={styles.logoLogin}>GymBucks</Text>
         <TextInput
           value={phone}
           onChangeText={setPhone}
           placeholder={"Phone"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
         <TextInput
           value={password}
           onChangeText={setPassword}
           placeholder={"Password"}
-          style={{ margin: 10 }}
+          style={styles.inputField}
         />
-        <Button title="Sign in" onPress={logIn} />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={logIn}
+            style={styles.signinButton}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.signinButtonText}>Sign in</Text>
+          </TouchableOpacity>
+          <View style={styles.signupButtonContainer}>
+            <Button title="Sign up" onPress={startSignUp} color="grey" />
+          </View>
+        </View>
         <Text style={{ color: "red" }}>{error}</Text>
-        <Button title="Sign up" onPress={startSignUp} />
-      </View>
+      </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  logoLogin: {
+    fontSize: 50,
+    marginBottom: 100
+  },
+  logoSignup: {
+    fontSize: 50,
+    marginBottom: 50
+  },
+  loginView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#f2f2f2",
+    alignItems: "center",
+    paddingHorizontal: 50
+  },
+  inputField: {
+    backgroundColor: "white",
+    width: "90%",
+    margin: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 40,
+    fontSize: 16
+  },
+  signinButton: {
+    marginTop: 20,
+    backgroundColor: "green",
+    height: 40,
+    width: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20
+  },
+  signupViewButton: {
+    marginTop: 20,
+    backgroundColor: "#933a16",
+    height: 40,
+    width: 120,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20
+  },
+  signinButtonText: {
+    color: "white",
+    fontSize: 18
+  },
+  signupButtonContainer: {
+    marginTop: 10
+  }
+});
