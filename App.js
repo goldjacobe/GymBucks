@@ -13,7 +13,6 @@ export default function App() {
   const [name, setName] = useState("");
 
   const reset = () => {
-    setPhone("");
     setError("");
     setPassword("");
     setConfirm("")
