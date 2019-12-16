@@ -95,10 +95,10 @@ export default function App() {
       const imageUri = image;
       const uriSplit = imageUri.split(".");
       const ext = uriSplit[uriSplit.length - 1];
-      const name = phone + "." + ext;
+      const imgName = phone + "." + ext;
       const type = "image/" + ext;
       const im = {
-        name: name,
+        name: imgName,
         type: type,
         uri: imageUri
       };
@@ -110,34 +110,7 @@ export default function App() {
       };
       console.log("UPLOADING");
 
-      RNS3.put(im, options).then(response => {
-        var apigClient = apigClientFactory.newClient({
-          apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
-        });
-        var params = {
-          uid: phone
-        };
-        apigClient
-          .searchinfoGet(params)
-          .then(function(result) {
-            console.log("this should be the data");
-            console.log(result.data);
-            result.data["profilepic"] = name;
-            apigClient
-            .updateinfoPut({},result,{})
-            .then(function(result) {
-              console.log(result.data)
-            })
-            .catch(function(result) {
-              console.log(result);
-            });
-    
-          })
-          .catch(function(result) {
-            console.log(result);
-          });
-  
-      });
+      RNS3.put(im, options).then(response => {});
     }
 
     var apigClient = apigClientFactory.newClient({
@@ -153,6 +126,48 @@ export default function App() {
       .then(function(result) {
         // This is executed if get a 200 response
         if (result.data) {
+          if (image) {
+            params = {
+              uid: phone
+            };
+            apigClient
+              .searchinfoGet(params)
+              .then(function(result) {
+                // returned result
+                // {
+                //   "uid" : "3106223581",
+                //   "name" : "Ashley",
+                //   "username" : "ashleywu",
+                //   "phone" : "3106223581",
+                //   "email" : "tw2725@columbia.edu",
+                //   "profilepic":"default.png",
+                //   "balance" : 10000,
+                //   "completed_workout" : 100,
+                //   "curpollnum":0,
+                //   "curpollbal":0
+                // }
+                console.log("updating profile picture!!!!!!");
+                params = result.data;
+                params.profilepic = imgName;
+                apigClient
+                  .updateinfoPut({}, params, {})
+                  .then(function(result) {
+                    //returned response
+                    // {
+                    // "statusCode": 200,
+                    // "body": "\"success\""
+                    // }
+                    console.log(result.data);
+                  })
+                  .catch(function(result) {
+                    console.log(result);
+                  });
+              })
+              .catch(function(result) {
+                console.log(result);
+              });
+          }
+
           setLoggedIn(true);
           setSignUp(false);
           reset();
