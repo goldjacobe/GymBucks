@@ -5,6 +5,7 @@ import apigClientFactory from "../../apig/apigClient";
 import PostItem from "./PostItem";
 
 const PostList = props => {
+  console.log("POSTLIST PROPS: ", props);
   const [postDataList, setpostDataList] = useState([]);
 
   const get_log = query => {
