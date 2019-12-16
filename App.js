@@ -16,10 +16,10 @@ import * as ImagePicker from "expo-image-picker";
 import { RNS3 } from "react-native-aws3";
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [error, setError] = useState("");
   const [signUp, setSignUp] = useState(false);
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("3106223581");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [name, setName] = useState("");
@@ -89,13 +89,13 @@ export default function App() {
       setError("Password mismatch");
       return;
     }
-
+    var imgName = "default.png";
     if (image) {
       console.log("image: ", image);
       const imageUri = image;
       const uriSplit = imageUri.split(".");
       const ext = uriSplit[uriSplit.length - 1];
-      const imgName = phone + "." + ext;
+      imgName = phone + "." + ext;
       const type = "image/" + ext;
       const im = {
         name: imgName,
