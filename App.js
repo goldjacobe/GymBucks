@@ -111,7 +111,32 @@ export default function App() {
       console.log("UPLOADING");
 
       RNS3.put(im, options).then(response => {
-        console.log(response);
+        var apigClient = apigClientFactory.newClient({
+          apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
+        });
+        var params = {
+          uid: phone
+        };
+        apigClient
+          .searchinfoGet(params)
+          .then(function(result) {
+            console.log("this should be the data");
+            console.log(result.data);
+            result.data["profilepic"] = name;
+            apigClient
+            .updateinfoPut({},result,{})
+            .then(function(result) {
+              console.log(result.data)
+            })
+            .catch(function(result) {
+              console.log(result);
+            });
+    
+          })
+          .catch(function(result) {
+            console.log(result);
+          });
+  
       });
     }
 
