@@ -5,6 +5,7 @@ import apigClientFactory from "../../apig/apigClient";
 import PostItem from "./PostItem";
 
 const PostList = props => {
+  console.log("POSTLIST PROPS: ", props);
   const [postDataList, setpostDataList] = useState([]);
 
   const get_log = query => {
@@ -37,7 +38,7 @@ const PostList = props => {
   return (
     <View style={styles.container}>
       <FlatList
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => item.uid + item.time}
         data={postDataList}
         renderItem={itemData => (
           <View style={styles.listItem}>

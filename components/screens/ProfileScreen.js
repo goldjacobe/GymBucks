@@ -1,23 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import apigClientFactory from "../../apig/apigClient";
 
 import ProfileTopBanner from "../profile/ProfileTopBanner";
 import ProfileTile from "../profile/ProfileTile";
 import SettingList from "../profile/SettingList";
 
 const ProfileScreen = props => {
-  const userData = {
-    balance: 10000,
-    completed_workout: 100,
-    curpollbal: 0,
-    curpollnum: 0,
-    email: "tw2725@columbia.edu",
-    name: "Ashley",
-    phone: "3106223581",
-    profilepic: "default.png",
-    uid: "3106223581",
-    username: "ashleywu"
-  };
+  const [userData, setuserData] = useState({});
+  console.log("PROFILE SCREEN PROPS: ", props);
+  get_user(props.screenProps.uid, setuserData);
+
   return (
     <View style={styles.container}>
       <ProfileTopBanner userData={userData} />
@@ -91,5 +84,37 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+const get_user = (query, setuserData) => {
+  var apigClient = apigClientFactory.newClient({
+    apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
+  });
+  var params = {
+    uid: query
+  };
+  apigClient
+    .searchinfoGet(params)
+    .then(function(result) {
+      // returned result
+      // {
+      //   "uid" : "3106223581",
+      //   "name" : "Ashley",
+      //   "username" : "ashleywu",
+      //   "phone" : "3106223581",
+      //   "email" : "tw2725@columbia.edu",
+      //   "profilepic":"default.png",
+      //   "balance" : 10000,
+      //   "completed_workout" : 100,
+      //   "curpollnum":0,
+      //   "curpollbal":0
+      // }
+      console.log("RESULT: ", result);
+      console.log(result.data);
+      setuserData(result.data);
+    })
+    .catch(function(result) {
+      console.log(result);
+    });
+};
 
 export default ProfileScreen;
