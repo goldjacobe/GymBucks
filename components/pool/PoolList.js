@@ -8,8 +8,8 @@ const PoolList = props => {
     <View style={styles.container}>
       <Text style={styles.sectionHeader}>Previous Reward Pools</Text>
       <FlatList
-        keyExtractor={(item, index) => Math.random()}
-        data={props.poolList.reverse()}
+        keyExtractor={(item, index) => item.date}
+        data={props.poolList}
         renderItem={itemData => (
           <View style={styles.listItem}>
             <PoolListItem poolData={itemData} />

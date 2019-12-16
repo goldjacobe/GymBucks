@@ -13,7 +13,6 @@ const ProfileScreen = props => {
     curpollnum: 0,
     curpollbal: 0
   });
-  console.log("PROFILE SCREEN PROPS: ", props);
   get_user(props.screenProps.uid, setuserData);
 
   return (
