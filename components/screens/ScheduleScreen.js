@@ -10,9 +10,8 @@ class ScheduleScreen extends React.Component {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "stretch",
-        backgroundColor: "red"
       }}>
-        {_.map([-1, 0, 1], (w) => <ScheduleRow key={w} week={w} />)}
+        {_.map([-1, 0, 1], (w) => <ScheduleRow key={w} week={w} uid={this.props.screenProps.uid}/>)}
       </View>
     );
   }
