@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 const PoolTopBanner = props => {
-  console.log(props);
   return (
     <View style={styles.container}>
       <View style={styles.left}>

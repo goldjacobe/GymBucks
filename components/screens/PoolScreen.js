@@ -9,8 +9,10 @@ import apigClientFactory from "../../apig/apigClient";
 const PoolScreen = props => {
   const [poolList, setpoolList] = useState([]);
   const [poolToday, setpoolToday] = useState({});
+  const [balance, setbalance] = useState("");
 
   get_pool(props.screenProps.uid, setpoolList, setpoolToday);
+  get_balance(props.screenProps.uid, setbalance);
 
   return (
     <View style={styles.container}>
@@ -50,7 +52,7 @@ const PoolScreen = props => {
             style={styles.poolTile}
             poolData={{
               title: "My Balance",
-              value: poolToday["Balance"],
+              value: "$" + balance,
               iconName: "md-cash",
               iconColor: "#97cbeb"
             }}
@@ -143,7 +145,7 @@ const formatPoolData = poolData => {
   return poolDataF;
 };
 
-const get_balance = query => {
+const get_balance = (query, setbalance) => {
   var apigClient = apigClientFactory.newClient({
     apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
   });
@@ -166,16 +168,14 @@ const get_balance = query => {
       //   "curpollnum":0,
       //   "curpollbal":0
       // }
-      console.log("balance: ", result.data.balance);
-      return result.data.balance;
+      setbalance(result.data.balance);
     })
     .catch(function(result) {
       console.log(result);
     });
 };
 
-const get_today_stats = (poolToday, uid) => {
-  balance = get_balance(uid);
+const get_today_stats = poolToday => {
   if (poolToday.participants * poolToday.completion == 0) {
     expected = 0;
   } else {
@@ -183,9 +183,7 @@ const get_today_stats = (poolToday, uid) => {
       (poolToday.pool_value * (1 - poolToday.completion)) /
       (poolToday.participants * poolToday.completion);
   }
-
   poolToday["expected"] = expected;
-  poolToday["balance"] = balance;
   return poolToday;
 };
 
@@ -207,7 +205,7 @@ const get_pool = (query, setpoolList, setpoolToday) => {
       var poolList = result.data.reverse();
       const poolToday = poolList.pop();
       setpoolList(formatPoolList(poolList));
-      setpoolToday(formatPoolData(get_today_stats(poolToday, query)));
+      setpoolToday(formatPoolData(get_today_stats(poolToday)));
     })
     .catch(function(result) {
       console.log(result);
