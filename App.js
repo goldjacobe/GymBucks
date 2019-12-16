@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import {
   View,
   TextInput,
@@ -9,8 +10,13 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
+=======
+import { View, TextInput, Text, Button, Image } from "react-native";
+>>>>>>> 426d4554b197416375836be1258e4b7bdb3cd3a0
 import Navigator from "./components/navigators/TabNavigator";
 import apigClientFactory from "./apig/apigClient";
+import * as ImagePicker from "expo-image-picker";
+import { RNS3 } from "react-native-aws3";
 
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
@@ -19,13 +25,14 @@ import { RNS3 } from "react-native-aws3";
 import { withTheme } from "react-native-elements";
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [error, setError] = useState("");
   const [signUp, setSignUp] = useState(false);
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("3106223581");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [name, setName] = useState("");
+  const [image, setImage] = useState(null)
 
   const [image, setImage] = useState(null);
 
@@ -34,6 +41,22 @@ export default function App() {
     setPassword("");
     setConfirm("");
     setName("");
+    setImage(null);
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
   const logIn = () => {
@@ -78,6 +101,29 @@ export default function App() {
       return;
     }
 
+    if (image) { 
+      const imageUri = image;
+      const uriSplit = imageUri.split(".");
+      const ext = uriSplit[uriSplit.length - 1];
+      const name = uid + "." + ext
+      const type = "image/" + ext;
+      const im = {
+        name: name,
+        type: type,
+        uri: imageUri
+      }
+      const options = {
+        bucket: "cloud-project-user-profile-pic",
+        region: "us-east-1",
+        accessKey: "AKIA4DYHWUTBMWY73UQF ",
+        secretKey: "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"
+      };
+      console.log("UPLOADING")
+
+      RNS3.put(im, options).then(response => {console.log(response)});
+  }
+
+
     var apigClient = apigClientFactory.newClient({
       apiKey: "hp3cPqP6Ml9jTtt579YcH7qzQkDtBUUJ4QdQlq7A"
     });
@@ -91,7 +137,6 @@ export default function App() {
       .then(function(result) {
         // This is executed if get a 200 response
         if (result.data) {
-          // Check to make sure that log in was successful
           setLoggedIn(true);
           setSignUp(false);
           reset();
@@ -143,6 +188,7 @@ export default function App() {
           placeholder={"Confirm password"}
           style={styles.inputField}
         />
+<<<<<<< HEAD
         <TouchableOpacity
           onPress={signUpPressed}
           style={styles.signupViewButton}
@@ -150,6 +196,24 @@ export default function App() {
         >
           <Text style={styles.signinButtonText}>Sign up</Text>
         </TouchableOpacity>
+=======
+        <View style={{justifyContent: "center", alignItems: "center"}}>
+          <Button
+            title="Pick a profile image from camera roll"
+            onPress={pickImage}
+          />
+          <View>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
+          </View>
+        </View>
+
+        <Button title="Sign up" onPress={signUpPressed} />
+>>>>>>> 426d4554b197416375836be1258e4b7bdb3cd3a0
         <Text style={{ color: "red" }}>{error}</Text>
         <Button title="Cancel" onPress={cancel} color="grey" />
       </ScrollView>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/Ionicons";
 import { TouchableHighlight } from "react-native-gesture-handler";
@@ -17,8 +17,8 @@ export default function HomeScreen(props) {
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight onPress={() => props.navigation.navigate("Schedule")}>
-        <ScheduleRow />
+      <TouchableHighlight underlayColor='#dddddd' activeOpacity={0.1} onPress={() => props.navigation.navigate("Schedule")}>
+        <ScheduleRow uid={props.screenProps.uid}/>
       </TouchableHighlight>
       <PostList uid={props.screenProps.uid} />
       <AddPostModal
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "stretch",
-    backgroundColor: "red"
   },
   actionButtonIcon: {
     fontSize: 20,
