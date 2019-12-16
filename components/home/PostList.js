@@ -37,7 +37,7 @@ const PostList = props => {
   return (
     <View style={styles.container}>
       <FlatList
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => item.uid + item.time}
         data={postDataList}
         renderItem={itemData => (
           <View style={styles.listItem}>

@@ -16,9 +16,9 @@ export default function App() {
     setPhone("");
     setError("");
     setPassword("");
-    setConfirm("")
+    setConfirm("");
     setName("");
-  }
+  };
 
   const logIn = () => {
     var apigClient = apigClientFactory.newClient({
@@ -52,14 +52,14 @@ export default function App() {
   const startSignUp = () => {
     setSignUp(true);
     setError(false);
-  }
+  };
   const cancel = () => {
     setSignUp(false);
-  }
+  };
   const signUpPressed = () => {
     if (password != confirm) {
-      setError("Password mismatch")
-      return
+      setError("Password mismatch");
+      return;
     }
 
     var apigClient = apigClientFactory.newClient({
@@ -88,8 +88,7 @@ export default function App() {
         setError("Invalid response");
         console.log(result);
       });
-
-  }
+  };
 
   if (loggedIn) {
     return (
@@ -99,35 +98,35 @@ export default function App() {
     );
   } else if (signUp) {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <TextInput
-        value={phone}
-        onChangeText={setPhone}
-        placeholder={'Phone'}
-        style={{margin: 10}}
-      />
-      <TextInput
-        value={name}
-        onChangeText={setName}
-        placeholder={'Name'}
-        style={{margin: 10}}
-      />
-      <TextInput
-        value={password}
-        onChangeText={setPassword}
-        placeholder={'Password'}
-        style={{margin: 10}}
-      />
-      <TextInput
-        value={confirm}
-        onChangeText={setConfirm}
-        placeholder={'Confirm password'}
-        style={{margin: 10}}
-      />
-      <Button title="Sign up" onPress={signUpPressed} />
-      <Text style={{color: 'red'}}>{error}</Text>
-      <Button title="Cancel" onPress={cancel} />
-    </View>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <TextInput
+          value={phone}
+          onChangeText={setPhone}
+          placeholder={"Phone"}
+          style={{ margin: 10 }}
+        />
+        <TextInput
+          value={name}
+          onChangeText={setName}
+          placeholder={"Name"}
+          style={{ margin: 10 }}
+        />
+        <TextInput
+          value={password}
+          onChangeText={setPassword}
+          placeholder={"Password"}
+          style={{ margin: 10 }}
+        />
+        <TextInput
+          value={confirm}
+          onChangeText={setConfirm}
+          placeholder={"Confirm password"}
+          style={{ margin: 10 }}
+        />
+        <Button title="Sign up" onPress={signUpPressed} />
+        <Text style={{ color: "red" }}>{error}</Text>
+        <Button title="Cancel" onPress={cancel} />
+      </View>
     );
   } else {
     return (
@@ -145,7 +144,7 @@ export default function App() {
           style={{ margin: 10 }}
         />
         <Button title="Sign in" onPress={logIn} />
-        <Text style={{color: 'red'}}>{error}</Text>
+        <Text style={{ color: "red" }}>{error}</Text>
         <Button title="Sign up" onPress={startSignUp} />
       </View>
     );
